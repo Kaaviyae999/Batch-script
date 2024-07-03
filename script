@@ -1,0 +1,12 @@
+@echo off
+setlocal enabledelayedexpansion
+set TodaysDate=%date:~-4,4%%date:~-10,2%%date:~7,2%
+set TodaysDirectory=D:\Backuplogs\%TodaysDate%
+mkdir D:\Backuplogs\%TodaysDate%
+set "LOCATION=D:\PMS\Log\"
+for /F "eol=| delims=" %%F in ('
+    dir /B /A:-D "%LOCATION%\*.txt" ^
+        ^| findstr /I /R "[0-9][0-9]*\.txt$"
+') do (
+    move D:\PMS\Log\%%F %TodaysDirectory%
+)
